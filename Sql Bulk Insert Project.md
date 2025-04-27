@@ -1,7 +1,7 @@
 
 ### A small simple script to read data from an excel table and distribute them and insert row in multiple tables in  an SQL Server instance
 
-The real scenario involved a list of possible customers that had to be inserted to a mobile sales app backend. The data was more complex and had to update more tables. The app has a local database that synchronizes and gets data with a data warehouse in a cloud vm. The app dev asked for a certain amount of money, so to cut costs we decided to try to update the new data in the data warehouse with a simple Python script.
+The real scenario involved a list of possible customers that had to be inserted to a mobile sales app backend. The data was more complex and had to update more tables./ The app has a local database that synchronizes and gets data with a data warehouse in a cloud vm. The app dev asked for a certain amount of money,/ so to cut costs we decided to try to update the new data in the data warehouse with a simple Python script.
 
 To use it first install requirements.txt
 
