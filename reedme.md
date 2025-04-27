@@ -31,7 +31,7 @@ I am using PYODBC to connect to the SQL Server database. The connection string l
 - PWD: The user password
 - TrustServerCertificate parameter: In SQL server on premise you might get a connection error "A connection was successfully established with the server, but then an error occurred during the login process. (provider: SSL Provider, error: 0 - The certificate chain was issued by an authority that is not trusted.) (Framework Microsoft SqlClient Data Provider)". Changing TrustServerCertificate to yes will solve this.
 
-![[Pasted image 20250427091523.png]]
+![trust certificate](images\trust_certificate.png)
 
 1. First create a connection object
 
