@@ -23,38 +23,39 @@ def main():
     data["Address"] = data["Address"].str.replace("'", "")
     data["LineOffBusiness"] = data["LineOffBusiness"].str.replace("'", "")
 
+    connection_string = "DRIVER={ODBC Driver 17 for SQL Server};SERVER="+SERVER+";DATABASE="+DATABASE+";UID="+USERNAME+";PWD="+PW #+";TrustServerCertificate=yes;"
     # Connect using the connection string
-    cnxn = pyodbc.connect("DRIVER={ODBC Driver 17 for SQL Server};SERVER="+SERVER+";DATABASE="+DATABASE+";UID="+USERNAME+";PWD="+PW+";TrustServerCertificate=yes;")
+    cnxn = pyodbc.connect(connection_string)
     # Replace the driver with the on you are running. If you are connecting to a cloud SQL server instance, you can just use {SQL Server} for the driver
 
     cursor = cnxn.cursor()
-    cursor.fast_executemany = True # Eneble fast execution to prepare one single natch insert operation in stead of running and commiting one query at a time
+    cursor.fast_executemany = True # Eneble fast execution to prepare one single batch insert operation in stead of running and commiting one query at a time
 
     # Queries (? works as a place holder)
     custtable_query = f"""INSERT INTO MainCustTable (
-                            CustomerId,
-                            CustomerName,
-                            RegId,
-                            LineOffBusiness)
-                        VALUES
-                        (?, ?, ?, ?)"""
+                                CustomerId,
+                                CustomerName,
+                                RegId,
+                                LineOffBusiness)
+                            VALUES
+                            (?, ?, ?, ?)"""
 
     contacttable_query = f"""INSERT INTO CustContact (
-                            CustomerId,
-                            ContactId,
-                            Phone,
-                            Email)
-                        VALUES
-                        (?, ?, ?, ?)"""
+                                CustomerId,
+                                ContactId,
+                                Phone,
+                                Email)
+                            VALUES
+                            (?, ?, ?, ?)"""
 
     addresstable_query = f"""INSERT INTO CustAddress (
-                            CustomerId,
-                            AddressId,
-                            City,
-                            Country,
-                            Address)
-                        VALUES
-                        (?, ?, ?, ?, ?)"""
+                                CustomerId,
+                                AddressId,
+                                City,
+                                Country,
+                                Address)
+                            VALUES
+                            (?, ?, ?, ?, ?)"""
 
     # loop the excel table and prepare the query params
     custtable_params = []
@@ -76,7 +77,7 @@ def main():
             row.CustomerId,
             contact_id,
             row.Phone,
-            row.Email
+            row.dummyemail
         ))
 
         # Address table params
@@ -89,21 +90,19 @@ def main():
             row.Address
         ))
 
-        # Execute queries
-        try:
-            cursor.executemany(custtable_query, custtable_params)
-        except Exception as e:
-            logging.exception("An error occurred")
-
-        try:
-            cursor.executemany(contacttable_query, contacttable_params)
-        except Exception as e:
-            logging.exception("An error occurred")
-
-        try:
-            cursor.executemany(addresstable_query, addresstable_params)
-        except Exception as e:
-            logging.exception("An error occurred")
+    # Execute queries
+    try:
+        cursor.executemany(custtable_query, custtable_params)
+    except Exception as e:
+        logging.exception("An error occurred")
+    try:
+        cursor.executemany(contacttable_query, contacttable_params)
+    except Exception as e:
+        logging.exception("An error occurred")
+    try:
+        cursor.executemany(addresstable_query, addresstable_params)
+    except Exception as e:
+        logging.exception("An error occurred")
 
     # Commit queries and close cursor
     cnxn.commit()
