@@ -46,7 +46,7 @@ cursor = cnxn.cursor()
 
 You can find a quick guide here: https://learn.microsoft.com/en-us/sql/machine-learning/data-exploration/python-dataframe-pandas?view=sql-server-ver16
 
-**Updating the tables**
+**Updating the tables** 
 At first I tried to loop the data frame rows and execute a single insert into statement for every row. For better performance and to avoid the constant back and forth calls with the database, I used the fast_executemany parameter from PYODBC. 
 
 ```Python
