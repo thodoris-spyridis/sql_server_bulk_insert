@@ -161,3 +161,10 @@ cython_debug/
 
 *.txt
 sql_bulk_insert/
+.DS_Store
+Thumbs.db
+.vscode/
+dist/
+build/
+*.log
+*.tmp
