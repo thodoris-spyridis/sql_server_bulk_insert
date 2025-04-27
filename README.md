@@ -53,12 +53,12 @@ At first I tried to loop the data frame rows and execute a single insert into st
 cursor.fast_executemany = True
 ```
 
-Then, instead of using .iterrrows() to get the row data and run the query (bad performance), I used .tertuples() (faster) to create parameter lists for every table by appending all the values I want to insert to the table in a list of tuples, and then just run executemany with the query string and parameters list. 
-Updating 6 tables from a list of a little more than 7.000 rows, the script took less than a minute to run. 
+Then, instead of using .iterrrows() to get the row data and run the query (bad performance), I used .itertuples() (faster) to create parameter lists for every table by appending all the values I want to insert to the table in a list of tuples, and then just run executemany with the query string and parameters list. 
+Updating 6 tables from a list of a little more than 7.000 rows, took less than a minute to run. 
 
 After running the queries, just commit and close the cursor object.
 
-**Note:** I used SQL Server in this use case. PYODBC supports other databases as well. You can find out more in the PYODBC docs:
+**Note:** I used SQL Server for this use case. PYODBC supports other databases as well. You can find out more in the PYODBC docs:
 https://github.com/mkleehammer/pyodbc/wiki
 
 
