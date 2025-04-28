@@ -23,13 +23,13 @@ def main():
     data["Address"] = data["Address"].str.replace("'", "")
     data["LineOffBusiness"] = data["LineOffBusiness"].str.replace("'", "")
 
-    connection_string = "DRIVER={ODBC Driver 17 for SQL Server};SERVER="+SERVER+";DATABASE="+DATABASE+";UID="+USERNAME+";PWD="+PW #+";TrustServerCertificate=yes;"
+    connection_string = "DRIVER={ODBC Driver 17 for SQL Server};SERVER="+SERVER+";DATABASE="+DATABASE+";UID="+USERNAME+";PWD="+PW+";TrustServerCertificate=yes;"
     # Connect using the connection string
     cnxn = pyodbc.connect(connection_string)
-    # Replace the driver with the on you are running. If you are connecting to a cloud SQL server instance, you can just use {SQL Server} for the driver
+    # Replace the driver with the one you are running. If you are connecting to a cloud SQL server instance, you can just use {SQL Server} for the driver
 
     cursor = cnxn.cursor()
-    cursor.fast_executemany = True # Eneble fast execution to prepare one single batch insert operation in stead of running and commiting one query at a time
+    cursor.fast_executemany = True # Enable fast execution to prepare one single batch insert operation in stead of running and commiting one query at a time
 
     # Queries (? works as a place holder)
     custtable_query = f"""INSERT INTO MainCustTable (
